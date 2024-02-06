@@ -90,7 +90,7 @@ void Q2XbW2() {
     can->cd(6);
     hmiss->Draw();
     can->cd(7);
-
+    hPt2->Draw();
     can->Print("can.pdf");
   
 }
