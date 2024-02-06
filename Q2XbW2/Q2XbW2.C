@@ -39,7 +39,8 @@ void Q2XbW2() {
     //auto* hmiss2 = new TH1F("Mx2","missing mass squared distribution",200,0,2);  
     clas12root::HipoChain chain;
      // Add your HIPo files
-     chain.Add("/volatile/clas12/rg-d/production/prod/v0_ob_CxC/dst/recon/018451/rec_clas_018451.evio.01215-01219.hipo");
+     chain.Add("/lustre19/expphy/volatile/clas12/rg-d/production/prod/v0_ib_LD2/dst/recon/018321/rec_clas_018321.evio.00085-00089.hipo");
+     //chain.Add("/volatile/clas12/rg-d/production/prod/v0_ob_CxC/dst/recon/018451/rec_clas_018451.evio.01215-01219.hipo");
     chain.db()->turnOffQADB();
     auto config_c12 = chain.GetC12Reader();
     auto& c12 = chain.C12ref();
@@ -91,6 +92,6 @@ void Q2XbW2() {
     hmiss->Draw();
     can->cd(7);
     hPt2->Draw();
-    can->Print("can.pdf");
+    can->Print("LD2_Inbending.pdf");
   
 }
