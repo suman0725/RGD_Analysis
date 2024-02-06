@@ -34,6 +34,8 @@ void Q2XbW2() {
     auto* hW2 = new TH1F("W2", "W^2 distribution", 200, 0, 20); // Histogram for W^2
     auto* hW = new TH1F("W", "W distribution", 200, 0, 8); // Histogram for W
     auto* hmiss = new TH1F("Mx","Missing mass distribution",200, 0,10);
+    auto* hPt2 = new TH1F("Pt2", "Transverse Momentum Squared of Pi+", 100, 0, 1); // Histogram for Pt^2
+
     //auto* hmiss2 = new TH1F("Mx2","missing mass squared distribution",200,0,2);  
     clas12root::HipoChain chain;
      // Add your HIPo files
@@ -56,7 +58,10 @@ void Q2XbW2() {
             double xB = Q2 / (2 * target.M() * nu); // Calculate Bjorken x
             double W2 = target.M()*target.M() + 2*target.M()*nu - Q2; // Calculate W^2
             double W = sqrt(W2); // Calculate W
-            
+            double Pt2 = pip.Px()*pip.Px() + pip.Py()*pip.Py();
+
+
+            hPt2->Fill(Pt2); // Fill Pt^2 histogram
             hmiss->Fill(miss.M());
             hQ2->Fill(Q2);
             hxB->Fill(xB);
@@ -80,5 +85,6 @@ void Q2XbW2() {
     hW->Draw(); // Draw W histogram
     can->cd(6);
     hmiss->Draw();
+    can->cd(7); hPt2->Draw(); // Draw Pt^2 histogram
     can->Print("can.pdf");
 }
