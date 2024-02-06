@@ -58,16 +58,21 @@ void Q2XbW2() {
             double xB = Q2 / (2 * target.M() * nu); // Calculate Bjorken x
             double W2 = target.M()*target.M() + 2*target.M()*nu - Q2; // Calculate W^2
             double W = sqrt(W2); // Calculate W
+            double y = nu / beamEnergy;
             double Pt2 = pip.Px()*pip.Px() + pip.Py()*pip.Py();
 
 
-            hPt2->Fill(Pt2); // Fill Pt^2 histogram
             hmiss->Fill(miss.M());
             hQ2->Fill(Q2);
             hxB->Fill(xB);
             hQ2vsxB->Fill(xB, Q2);
             hW2->Fill(W2); // Fill W^2 histogram
             hW->Fill(W); // Fill W histogram
+            hPt2->Fill(Pt2); // Fill Pt^2 histogram
+            if (Q2 > 1.5 && y> 0.25 && y < 0.85 && W > 2){
+            hPt2->Fill(Pt2); // Draw Pt^2 histogram
+             }
+            
          }
     }
 
@@ -85,6 +90,8 @@ void Q2XbW2() {
     hW->Draw(); // Draw W histogram
     can->cd(6);
     hmiss->Draw();
-    can->cd(7); hPt2->Draw(); // Draw Pt^2 histogram
+    can->cd(7);
+
     can->Print("can.pdf");
+  
 }
