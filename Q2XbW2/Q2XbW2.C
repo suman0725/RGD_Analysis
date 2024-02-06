@@ -61,6 +61,7 @@ void Q2XbW2() {
             double W = sqrt(W2); // Calculate W
             double y = nu / beamEnergy;
             double Pt2 = pip.Px()*pip.Px() + pip.Py()*pip.Py();
+            double z = pip. Energy()/beamEnergy; // calculate z for the pi+
 
 
             hmiss->Fill(miss.M());
@@ -69,7 +70,7 @@ void Q2XbW2() {
             hQ2vsxB->Fill(xB, Q2);
             hW2->Fill(W2); // Fill W^2 histogram
             hW->Fill(W); // Fill W histogram
-            if (Q2 > 1.5 && y> 0.25 && y < 0.85 && W > 2){
+            if (Q2 > 1.5 && y> 0.25 && y < 0.85 && W > 2 && z > 0.3 && z < 0.7){
             hPt2->Fill(Pt2); // Draw Pt^2 histogram
              }
             
