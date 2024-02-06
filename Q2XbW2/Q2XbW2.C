@@ -72,7 +72,7 @@ void Q2XbW2() {
     }
 
     TCanvas* can = new TCanvas("can", "Distributions", 2000, 400);
-    can->Divide(3,2);
+    can->Divide(4,2);
     can->cd(1);
     hQ2->Draw();
     can->cd(2);
