@@ -68,7 +68,6 @@ void Q2XbW2() {
             hQ2vsxB->Fill(xB, Q2);
             hW2->Fill(W2); // Fill W^2 histogram
             hW->Fill(W); // Fill W histogram
-            hPt2->Fill(Pt2); // Fill Pt^2 histogram
             if (Q2 > 1.5 && y> 0.25 && y < 0.85 && W > 2){
             hPt2->Fill(Pt2); // Draw Pt^2 histogram
              }
