@@ -111,5 +111,7 @@ void Q2XbW2() {
     can4->cd(1);
     hPt2->Draw();
     can4->Print("physic_analysis_inbending_LD2_018321.pdf(","pdf");
+
+   can1->Print("physic_analysis_inbending_LD2_018321.pdf)", "pdf");
   
 }
