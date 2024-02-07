@@ -34,7 +34,7 @@ void Q2XbW2() {
     auto* hW2 = new TH1F("W2", "W^{2} distribution;W^{2} (GeV)^{2};Counts", 200, 0, 20); // Histogram for W^2
     auto* hW = new TH1F("W", "W distribution;W (GeV);Counts", 200, 0, 8); // Histogram for W
     auto* hmiss = new TH1F("Mx", "Missing mass distribution;Mx (GeV);Counts", 200, 0, 10);
-    auto* hPt2 = new TH1F("Pt2", "Transverse Momentum Squared of Pi+;p_{t}^{2} (GeV/c)^{2};Counts", 100, 0, 1); // Histogram for Pt^2
+    auto* hPt2 = new TH1F("Pt2", "Transverse Momentum Squared of Pi+;p_{t}^{2} (GeV/c)^{2};Counts", 100, 0, 3); // Histogram for Pt^2
     //auto* hmiss2 = new TH1F("Mx2","missing mass squared distribution",200,0,2);  
     clas12root::HipoChain chain;
      // Add your HIPo files
@@ -110,8 +110,7 @@ void Q2XbW2() {
     can4->Divide(2, 1);
     can4->cd(1);
     hPt2->Draw();
-    can4->Print("physic_analysis_inbending_LD2_018321.pdf(","pdf");
+    can4->Print("physic_analysis_inbending_LD2_018321.pdf)","pdf");
 
-   can1->Print("physic_analysis_inbending_LD2_018321.pdf)", "pdf");
   
 }
