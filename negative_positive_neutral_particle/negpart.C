@@ -131,9 +131,8 @@ void  negpart(){
     can5->Divide(1, 1); // This canvas has only one plot
     can5->cd(1);
     vzVmom->Draw("COLZ");
-    can5->Print("negative_particles_results.pdf", "pdf");
+    can5->Print("negative_particles_results.pdf)", "pdf");
 
-    can1->Print("negative_particles_results.pdf)", "pdf");
 
 
 

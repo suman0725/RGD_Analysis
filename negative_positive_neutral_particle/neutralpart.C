@@ -85,9 +85,8 @@ void neutralpart() {
     TCanvas* can5 = new TCanvas("can5", "Canvas 5", 800, 600);
     can5->Divide(1, 1);
     can5->cd(1); vzVmom->Draw("COLZ");
-    can5->Print("neutral_particles_results.pdf", "pdf");
+    can5->Print("neutral_particles_results.pdf)", "pdf");
 
-    can1->Print("neutral_particles_results.pdf)", "pdf");
 }
 
 

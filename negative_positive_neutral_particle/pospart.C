@@ -79,7 +79,7 @@ using namespace clas12;
     phiVmom->Draw("COLZ");
     can2->cd(2);
     vzVphi->Draw("COLZ");
-    can2->Print("positibe_particles_results.pdf", "pdf");
+    can2->Print("positive_particles_results.pdf", "pdf");
     
     TCanvas* can3 = new TCanvas("can3", "Canvas 3", 800, 600);
     can3->Divide(2, 1); 
@@ -101,9 +101,8 @@ using namespace clas12;
     can5->Divide(1, 1); // This canvas has only one plot
     can5->cd(1);
     vzVmom->Draw("COLZ");
-    can5->Print("positive_particles_results.pdf", "pdf");
+    can5->Print("positive_particles_results.pdf)", "pdf");
 
-    can1->Print("positive_particles_results.pdf)", "pdf");
 
 
 
