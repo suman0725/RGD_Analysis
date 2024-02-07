@@ -28,13 +28,13 @@ void Q2XbW2() {
     TLorentzVector target(0, 0, 0, db->GetParticle(2212)->Mass()); // Proton target
     TLorentzVector el;
     TLorentzVector pip;
-    auto* hQ2 = new TH1F("Q2", "Q^{2} distribution;Q^{2} (GeV/c)^{2};Counts", 200, 0, 10);
+    auto* hQ2 = new TH1F("Q2", "Q^{2} distribution;Q^{2} (GeV)^{2};Counts", 200, 0, 10);
     auto* hxB = new TH1F("xB", "Bjorken x distribution;xB;Counts", 100, 0, 1);
-    auto* hQ2vsxB = new TH2F("Q2vsxB", "Q^{2} vs Bjorken x;Bjorken x;Q^{2} (GeV/c)^{2}", 100, 0, 1, 200, 0, 10);
+    auto* hQ2vsxB = new TH2F("Q2vsxB", "Q^{2} vs Bjorken x;Bjorken x;Q^{2} (GeV)^{2}", 100, 0, 1, 200, 0, 10);
     auto* hW2 = new TH1F("W2", "W^{2} distribution;W^{2} (GeV)^{2};Counts", 200, 0, 20); // Histogram for W^2
     auto* hW = new TH1F("W", "W distribution;W (GeV);Counts", 200, 0, 8); // Histogram for W
     auto* hmiss = new TH1F("Mx", "Missing mass distribution;Mx (GeV);Counts", 200, 0, 10);
-    auto* hPt2 = new TH1F("Pt2", "Transverse Momentum Squared of Pi+;p_{t}^{2} (GeV/c)^{2};Counts", 100, 0, 3); // Histogram for Pt^2
+    auto* hPt2 = new TH1F("Pt2", "Transverse Momentum Squared of Pi+;p_{t}^{2} (GeV)^{2};Counts", 100, 0, 3); // Histogram for Pt^2
     //auto* hmiss2 = new TH1F("Mx2","missing mass squared distribution",200,0,2);  
     clas12root::HipoChain chain;
      // Add your HIPo files
