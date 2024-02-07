@@ -28,19 +28,18 @@ void Q2XbW2() {
     TLorentzVector target(0, 0, 0, db->GetParticle(2212)->Mass()); // Proton target
     TLorentzVector el;
     TLorentzVector pip;
-    auto* hQ2 = new TH1F("Q2", "Q^2 distribution", 200, 0, 10);
-    auto* hxB = new TH1F("xB", "Bjorken x distribution", 100, 0, 1);
-    auto* hQ2vsxB = new TH2F("Q2vsxB", "Q^2 vs Bjorken x;Bjorken x;Q^2", 100, 0, 1, 200, 0, 10);
-    auto* hW2 = new TH1F("W2", "W^2 distribution", 200, 0, 20); // Histogram for W^2
-    auto* hW = new TH1F("W", "W distribution", 200, 0, 8); // Histogram for W
-    auto* hmiss = new TH1F("Mx","Missing mass distribution",200, 0,10);
-    auto* hPt2 = new TH1F("Pt2", "Transverse Momentum Squared of Pi+", 100, 0, 1); // Histogram for Pt^2
-
+    auto* hQ2 = new TH1F("Q2", "Q^{2} distribution;Q^{2} (GeV/c)^{2};Counts", 200, 0, 10);
+    auto* hxB = new TH1F("xB", "Bjorken x distribution;xB;Counts", 100, 0, 1);
+    auto* hQ2vsxB = new TH2F("Q2vsxB", "Q^{2} vs Bjorken x;Bjorken x;Q^{2} (GeV/c)^{2}", 100, 0, 1, 200, 0, 10);
+    auto* hW2 = new TH1F("W2", "W^{2} distribution;W^{2} (GeV)^{2};Counts", 200, 0, 20); // Histogram for W^2
+    auto* hW = new TH1F("W", "W distribution;W (GeV);Counts", 200, 0, 8); // Histogram for W
+    auto* hmiss = new TH1F("Mx", "Missing mass distribution;Mx (GeV);Counts", 200, 0, 10);
+    auto* hPt2 = new TH1F("Pt2", "Transverse Momentum Squared of Pi+;p_{t}^{2} (GeV/c)^{2};Counts", 100, 0, 1); // Histogram for Pt^2
     //auto* hmiss2 = new TH1F("Mx2","missing mass squared distribution",200,0,2);  
     clas12root::HipoChain chain;
      // Add your HIPo files
-     //chain.Add("/lustre19/expphy/volatile/clas12/rg-d/production/prod/v0_ib_LD2/dst/recon/018321/rec_clas_018321.evio.00085-00089.hipo");
-     chain.Add("/lustre19/expphy/volatile/clas12/rg-d/production/prod/v0_ob_LD2/dst/recon/018431/rec_clas_018431.evio.00365-00369.hipo"); 
+     chain.Add("/lustre19/expphy/volatile/clas12/rg-d/production/prod/v0_ib_LD2/dst/recon/018321/rec_clas_018321.evio.00085-00089.hipo");
+     //chain.Add("/lustre19/expphy/volatile/clas12/rg-d/production/prod/v0_ob_LD2/dst/recon/018431/rec_clas_018431.evio.00365-00369.hipo"); 
      //chain.Add("/volatile/clas12/rg-d/production/prod/v0_ob_CxC/dst/recon/018451/rec_clas_018451.evio.01215-01219.hipo");
     chain.db()->turnOffQADB();
     auto config_c12 = chain.GetC12Reader();
@@ -71,29 +70,46 @@ void Q2XbW2() {
             hQ2vsxB->Fill(xB, Q2);
             hW2->Fill(W2); // Fill W^2 histogram
             hW->Fill(W); // Fill W histogram
-            if (Q2 > 1.5 && y> 0.25 && y < 0.85 && W > 2 && z > 0.3 && z < 0.7){
+           /* if (Q2 > 1.5 && y> 0.25 && y < 0.85 && W > 2 && z > 0.3 && z < 0.7){
             hPt2->Fill(Pt2); // Draw Pt^2 histogram
-             }
+             }*/
+         
+            hPt2->Fill(Pt2); // Draw Pt^2 histogram
+           
             
          }
     }
 
-    TCanvas* can = new TCanvas("can", "Distributions", 2000, 400);
-    can->Divide(4,2);
-    can->cd(1);
+    TCanvas* can1 = new TCanvas("can1", "Q2 and xB", 800, 600);
+    can1->Divide(2,1);
+    can1->cd(1);
     hQ2->Draw();
-    can->cd(2);
+    can1->cd(2);
     hxB->Draw();
-    can->cd(3);
+    can1->Print("physic_analysis_inbending_LD2_018321.pdf(","pdf");
+    
+
+    TCanvas* can2 = new TCanvas("can2", "Q2vxB and W2", 800, 600);
+    can2->Divide(2, 1);
+    can2->cd(1);
     hQ2vsxB->Draw("COLZ");
-    can->cd(4);
+    can2->cd(2);
     hW2->Draw(); // Draw W^2 histogram
-    can->cd(5);
+    can2->Print("physic_analysis_inbending_LD2_018321.pdf(","pdf");
+
+
+    TCanvas* can3 = new TCanvas("can3", "Canvas 3", 800, 600);
+    can3->Divide(2, 1);
+    can3->cd(1);
     hW->Draw(); // Draw W histogram
-    can->cd(6);
+    can3->cd(2);
     hmiss->Draw();
-    can->cd(7);
+    can3->Print("physic_analysis_inbending_LD2_018321.pdf(","pdf");
+
+    TCanvas* can4 = new TCanvas("can4", "Canvas 4", 800, 600);
+    can4->Divide(2, 1);
+    can4->cd(1);
     hPt2->Draw();
-    can->Print("LD2_Outbending.pdf");
+    can4->Print("physic_analysis_inbending_LD2_018321.pdf(","pdf");
   
 }
