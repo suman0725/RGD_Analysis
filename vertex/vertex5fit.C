@@ -18,23 +18,24 @@
 
 using namespace clas12;
 
-void vertex2fit() {
+void vertex5fit() {
     clas12root::HipoChain chain; 
     chain.Add("/lustre19/expphy/volatile/clas12/rg-d/production/prod/v2_ob_CuSn/dst/recon/018573/rec_clas_018573.evio.00045-00049.hipo");
     chain.db()->turnOffQADB();
     auto& c12 = chain.C12ref(); 
 
     TCanvas* can1 = new TCanvas("can1", "Canvas for 6 Sectors", 1200, 800);
+
     can1->Divide(3, 2); // Arrange the canvas to fit 6 histograms
 
     TH1F* hvz[6];
     TF1* fitFunc[6];
     for(int i = 0; i < 6; ++i) {
         hvz[i] = new TH1F(Form("hvz_S%d", i+1), Form("Vz for electrons (Sector %d); Vz (cm); counts", i+1), 200, -15.0, 15.0);
-        fitFunc[i] = new TF1(Form("fitFunc_S%d", i+1), "gaus(0)+gaus(3)", -15.0, 15.0); // Two Gaussian peaks
+        fitFunc[i] = new TF1(Form("fitFunc_S%d", i+1), "gaus", -15.0, 15.0); // Use a single Gaussian peak for fitting
     }
 
-    while (chain.Next()) {
+   while (chain.Next()) {
         auto electrons = c12->getByID(11); 
 
         for (const auto& elec : electrons) {
@@ -54,37 +55,39 @@ void vertex2fit() {
             }
         }
     }
-   
+
+    // Process data as before
     for(int i = 0; i < 6; ++i) {
-        can1->cd(i+1); // Move to the next pad
-        // Adjust initial parameters based on the sector
-        switch(i) {
-        case 0: // Sector 1
-	     fitFunc[i]->SetParameters(hvz[i]->GetMaximum(), -3.0, 1.5, hvz[i]->GetMaximum()/3, 3.0, 1.5);
-            break;
-	case 1: // Sector 2
-	     fitFunc[i]->SetParameters(hvz[i]->GetMaximum(), -3.0, 1.5, hvz[i]->GetMaximum()/3, 3.0, 1.5);
-            break;
-	case 2: // Sector 3
-	    fitFunc[i]->SetParameters(hvz[i]->GetMaximum(), -1.0, 0.8, hvz[i]->GetMaximum()/3, 3.0, 1.5);
-            break;
-	case 3: // Sector 4
-            fitFunc[i]->SetParameters(hvz[i]->GetMaximum(), -4.0, 2.0, hvz[i]->GetMaximum()/3, 3.0, 1.5);
-            break;
-        case 4: // Sector 5, where you had issues
-            fitFunc[i]->SetParameters(hvz[i]->GetMaximum()/2, -5.0, 1.0, hvz[i]->GetMaximum()/2, 5.0, 1.0);
-            break;
-        case 5: // Sector 6
-            fitFunc[i]->SetParameters(hvz[i]->GetMaximum(), -3.0, 1.5, hvz[i]->GetMaximum()/3, 3.0, 1.5);
-            break;
+        can1->cd(i+1);
+    // Customize initial parameters based on sector
+    switch(i) {
+            case 0: // Sector 1
+                fitFunc[i]->SetParameters(hvz[i]->GetMaximum(), 10.0, 1.5);
+                break;
+	    case 1: // Sector 2
+                fitFunc[i]->SetParameters(hvz[i]->GetMaximum(), -1.0, 1.5);
+                break;
+            case 2: // Sector 3
+                fitFunc[i]->SetParameters(hvz[i]->GetMaximum(), 0.0, 2.0);
+                break;
+            case 3: // Sector 4
+                fitFunc[i]->SetParameters(hvz[i]->GetMaximum(), 1.0, 0.5);
+                break;
+            case 4: // Sector 5
+                fitFunc[i]->SetParameters(hvz[i]->GetMaximum(), 2.0, 1.2);
+                break;
+            case 5: // Sector 6
+                fitFunc[i]->SetParameters(hvz[i]->GetMaximum(), 3.0, 0.8);
+                break;
+            default:
+               // Default parameters, just in case
+               fitFunc[i]->SetParameters(hvz[i]->GetMaximum(), 0.0, 1.0);
+                break;
+        }
+
+        hvz[i]->Draw();
+        hvz[i]->Fit(Form("fitFunc_S%d", i+1), "R");
+        fitFunc[i]->Draw("same");
     }
-
-    hvz[i]->Draw();
-
-
-     hvz[i]->Fit(Form("fitFunc_S%d", i+1), "R");
-
-    fitFunc[i]->Draw("same");
-    }
- can1->SaveAs("SectorsVzDistribution2fit.pdf");
-}
+    can1->SaveAs("SectorsVzDistributionSinglePeak.pdf");
+}                                                                                                                  

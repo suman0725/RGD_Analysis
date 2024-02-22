@@ -12,12 +12,13 @@
 #include "clas12reader.h"
 #include "HipoChain.h"
 #include "region_particle.h"
+#include <TF1.h>
 #include "runconfig.h"
 #include "region_fdet.h"
 
 using namespace clas12;
 
-void vertex2() {
+void vertex2fitsinglepeak() {
     clas12root::HipoChain chain; 
     chain.Add("/lustre19/expphy/volatile/clas12/rg-d/production/prod/v2_ob_CuSn/dst/recon/018573/rec_clas_018573.evio.00045-00049.hipo");
     chain.db()->turnOffQADB();
@@ -48,10 +49,12 @@ if(phi >= -180 && phi < -120) sector = 0; // Sector 1
             }
         }
     }
+     TF1 *gausFit = new TF1("gausFit", "gaus", -5, 5); // Adjust -5, 5 to the range you're interested in
+    hvz[0]->Fit(gausFit, "R"); // "R" option for fit range
    for(int i = 0; i < 6; ++i) {
         can1->cd(i+1); // Move to the next pad
         hvz[i]->Draw();
-        can1->SaveAs("vzdistribution.pdf");
+        if (i == 0) gausFit->Draw("same"); // Draw the fit on top of the histogram for Sector 1
     }
 
 }

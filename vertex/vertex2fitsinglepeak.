@@ -51,7 +51,6 @@ if(phi >= -180 && phi < -120) sector = 0; // Sector 1
    for(int i = 0; i < 6; ++i) {
         can1->cd(i+1); // Move to the next pad
         hvz[i]->Draw();
-        can1->SaveAs("vzdistribution.pdf");
     }
 
 }
