@@ -42,7 +42,11 @@ void Q2XbW2() {
      //chain.Add("/lustre19/expphy/volatile/clas12/rg-d/production/prod/v0_ob_LD2/dst/recon/018431/rec_clas_018431.evio.00365-00369.hipo"); 
      //chain.Add("/volatile/clas12/rg-d/production/prod/v0_ob_CxC/dst/recon/018451/rec_clas_018451.evio.01215-01219.hipo");
     chain.db()->turnOffQADB();
+<<<<<<< HEAD
    
+=======
+    //auto config_c12 = chain.GetC12Reader();
+>>>>>>> 7f0de26eac4dcc434630d92ba7d872564a61ee4b
     auto& c12 = chain.C12ref();
     while (chain.Next()) {
         auto electrons = c12->getByID(11); // Get electrons
