@@ -49,12 +49,13 @@
 ./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/ROOT/RConcurrentHashColl.hxx
 ./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/ROOT/TRWSpinLock.hxx
 ./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/ROOT/TSpinMutex.hxx
+./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/TLine.h
+./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/TAttLine.h
+./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/TAttBBox2D.h
+./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/GuiTypes.h
 ./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/TLatex.h
 ./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/TText.h
 ./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/TAttText.h
-./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/TAttBBox2D.h
-./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/GuiTypes.h
-./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/TAttLine.h
 ./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/TF1.h
 ./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/TFormula.h
 ./vz_C.so: /u/group/clas12/packages/root/6.28.04-gcc9.2.0/include/TBits.h

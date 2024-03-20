@@ -1,4 +1,5 @@
 #include <TFile.h>
+#include <TLine.h>
 #include <TLatex.h>
 #include <TF1.h>
 #include <TTree.h>
@@ -121,13 +122,36 @@ if(phi >= -180 && phi < -120) sector = 0; // Sector 1
    	 //gaus2->SetLineWidth(1);
         gaus1->Draw("same");
         gaus2->Draw("same");
+	
+	 // Drawing 3 sigma lines for Cu 
+	 double line1_start = gaus1->GetParameter(1) - 3 * gaus1->GetParameter(2);
+        double line1_end = gaus1->GetParameter(1) + 3 * gaus1->GetParameter(2);
+        TLine *line1a = new TLine(line1_start, 0, line1_start, gaus1->GetMaximum());
+        TLine *line1b = new TLine(line1_end, 0, line1_end, gaus1->GetMaximum());
+        line1a->SetLineColor(kRed);
+        line1b->SetLineColor(kRed);
+        line1a->Draw("same");
+        line1b->Draw("same");
+
+	// Drawing 3 sigma lines for Sn (gaus2)
+	double line2_start = gaus2->GetParameter(1) - 3 * gaus2->GetParameter(2);
+        double line2_end = gaus2->GetParameter(1) + 3 * gaus2->GetParameter(2);
+        TLine *line2a = new TLine(line2_start, 0, line2_start, gaus2->GetMaximum());
+        TLine *line2b = new TLine(line2_end, 0, line2_end, gaus2->GetMaximum());
+        line2a->SetLineColor(kBlue);
+        line2b->SetLineColor(kBlue);
+        line2a->Draw("same");
+        line2b->Draw("same");
+
+	
+	
 
         TLatex latex;
         latex.SetTextSize(0.020);
         latex.SetTextAlign(13);
-        latex.DrawLatexNDC(0.6, 0.85, Form("Cu(red): Mean = %.2f, Sigma = %.2f", gaus1->GetParameter(1), gaus1->GetParameter(2)));
-        latex.DrawLatexNDC(0.6, 0.80, Form("Sn(blue): Mean = %.2f, Sigma = %.2f", gaus2->GetParameter(1), gaus2->GetParameter(2)));
-	latex.DrawLatexNDC(0.6, 0.75, Form("Entries: %d", int(hvz[i]->GetEntries())));
+        latex.DrawLatexNDC(0.55, 0.85, Form("Cu(red): Mean = %.2f, Sigma = %.2f", gaus1->GetParameter(1), gaus1->GetParameter(2)));
+        latex.DrawLatexNDC(0.55, 0.80, Form("Sn(blue): Mean = %.2f, Sigma = %.2f", gaus2->GetParameter(1), gaus2->GetParameter(2)));
+	latex.DrawLatexNDC(0.55, 0.75, Form("Entries: %d", int(hvz[i]->GetEntries())));
 
 
 
@@ -136,6 +160,6 @@ if(phi >= -180 && phi < -120) sector = 0; // Sector 1
 	}
  	can1->Update();	
 
-        can1->SaveAs("vzdistributionfit.pdf");
+        can1->SaveAs("vzdistributionfit3sigmacut.pdf");
     }
 
