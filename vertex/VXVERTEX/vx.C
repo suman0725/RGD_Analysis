@@ -1,4 +1,7 @@
 #include <TFile.h>
+#include <TLine.h>
+#include <TLatex.h>
+#include <TF1.h>
 #include <TTree.h>
 #include <TApplication.h>
 #include <TROOT.h>
@@ -50,8 +53,32 @@ if(phi >= -180 && phi < -120) sector = 0; // Sector 1
     }
    for(int i = 0; i < 6; ++i) {
         can1->cd(i+1); // Move to the next pad
+	hvx[i]->SetStats(0);
         hvx[i]->Draw();
-        can1->SaveAs("vxdistribution.pdf");
+	// Fit with a single Gaussian
+	TF1 *gaus = new TF1(Form("gaus_S%d", i+1), "gaus", -0.5, 0.5); // Adjust the fitting range as needed
+        hvx[i]->Fit(gaus, "R+");
+        gaus->SetLineColor(kRed);
+        gaus->Draw("same");
+	// Optionally, draw sigma lines based on the Gaussian fit
+	double line_start = gaus->GetParameter(1) - 3 * gaus->GetParameter(2);
+        double line_end = gaus->GetParameter(1) + 3 * gaus->GetParameter(2);
+        TLine *linea = new TLine(line_start, 0, line_start, gaus->GetMaximum());
+        TLine *lineb = new TLine(line_end, 0, line_end, gaus->GetMaximum());
+        linea->SetLineColor(kBlue);
+        lineb->SetLineColor(kBlue);
+        linea->Draw("same");
+        lineb->Draw("same");
+
+	TLatex latex;
+        latex.SetTextSize(0.020);
+        latex.SetTextAlign(13);
+        latex.DrawLatexNDC(0.55, 0.85, Form("Mean = %.2f, Sigma = %.2f", gaus->GetParameter(1), gaus->GetParameter(2)));
+        latex.DrawLatexNDC(0.55, 0.80, Form("Entries: %d", int(hvx[i]->GetEntries())));
+     }
+	can1->Update();
+
+        can1->SaveAs("vxdistribution3sigmacut.pdf");
     }
 
-}
+
