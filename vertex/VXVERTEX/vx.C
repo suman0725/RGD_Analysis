@@ -30,7 +30,7 @@ void vx() {
    can1->Divide(3, 2);
    TH1F* hvx[6];
     for(int i = 0; i < 6; ++i) {
-        hvx[i] = new TH1F(Form("hvx_S%d", i+1), Form("Vx for electrons (Sector %d); Vx (cm); counts", i+1), 200, -30.0, 30.0);
+        hvx[i] = new TH1F(Form("hvx_S%d", i+1), Form("Vx for electrons (Sector %d); Vx (cm); counts", i+1), 200, -5.0, 5.0);
     }
    while (chain.Next()) {
         auto electrons = c12->getByID(11); 
